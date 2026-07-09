@@ -1,0 +1,22 @@
+[Unit]
+Description=Wake-on-LAN proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/wolproxy.env
+ExecStart=/usr/local/bin/wolproxy
+Restart=on-failure
+RestartSec=2
+
+DynamicUser=yes
+NoNewPrivileges=yes
+AmbientCapabilities=CAP_NET_RAW CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_BIND_SERVICE
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
